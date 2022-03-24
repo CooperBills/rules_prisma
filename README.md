@@ -81,6 +81,6 @@ const blah = new PrismaClient();
 If you use additional generators, you'll need to do one of the following:
 * remove them (using a genrule), or:
 * patch this library to include the necessary @npm//mygenerator deps to the prisma_wrapper, or:
-* write your own nodejs_binary rule with @rules_prisma//prisma/internal:prisma_wrapper.js as the entry point and pass it to your prisma_js_library target using the `prisma_wrapper` attribute.
+* write your own nodejs_binary rule with `@rules_prisma//prisma/internal:prisma_wrapper.js` as the entry point and pass it to the `prisma_js_library` target using the `prisma_wrapper` attribute.
 
 Note that the output of those generators won't be included in bazel's out. 
