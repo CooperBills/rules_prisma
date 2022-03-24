@@ -6,6 +6,9 @@ Bazel rules for Prisma.
 This library assumes the following:
 * You're using [rules_nodejs](https://github.com/bazelbuild/rules_nodejs), and it's installed in the typical location (`@rules_nodejs`)
 * You have your bazel npm packages at `@npm`
+* `prisma-client-js` is your only generator (see `Additional Generators` below for ways to work with additional generators)
+* The output directory of your `prisma-client-js` matches your `prisma_js_library` target name (see `using` below)
+
 
 #### Required NPM deps
 
@@ -21,9 +24,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "rules_prisma",
-    sha256 = "8feef60d3ac0faf369868bef3794677a7fc2f09fda00a6a70bf073e0400b8307",
-    strip_prefix = "rules_prisma-0.0.1",
-    url = "https://github.com/CooperBills/rules_prisma/archive/refs/tags/v0.0.1.tar.gz"
+    sha256 = '34f61a641ba35446e395505c2d4c3909ff95da13d49ce8c666efe6c3b2ab1f00',
+    strip_prefix = "rules_prisma-0.1.1",
+    url = "https://github.com/CooperBills/rules_prisma/archive/refs/tags/v0.1.1.tar.gz",
 )
 ```
 
@@ -72,3 +75,11 @@ copyFileSync(join(__dirname, "../myclient/schema.prisma"), "./schema.prisma");
 const blah = new PrismaClient();
 ```
 
+## Additional Generators
+
+If you use additional generators, you'll need to do one of the following:
+* remove them (using a genrule), or:
+* patch this library to include the necessary @npm//mygenerator deps to the prisma_wrapper, or:
+* write your own nodejs_binary rule with @rules_prisma//prisma/internal:prisma_wrapper.js as the entry point and pass it to your prisma_js_library target using the `prisma_wrapper` attribute.
+
+Note that the output of those generators won't be included in bazel's out. 

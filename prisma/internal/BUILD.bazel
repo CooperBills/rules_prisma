@@ -1,6 +1,5 @@
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
-
 # This binary (prisma_wrapper.js) wraps prisma in a bazel
 nodejs_binary(
     name = "prisma_wrapper",
