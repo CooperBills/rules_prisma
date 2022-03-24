@@ -1,0 +1,7 @@
+load("@rules_prisma//prisma:prisma.bzl", "prisma_js_library")
+
+prisma_js_library(
+    name = "myclient",
+    schema = ":schema.prisma",
+    visibility = ["//:__subpackages__"],
+)

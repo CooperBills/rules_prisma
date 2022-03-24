@@ -1,0 +1,34 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@npm//@bazel/typescript:index.bzl", "ts_project")
+load("@npm//@bazel/esbuild:index.bzl", "esbuild")
+
+ts_project(
+    name = "server_sources",
+    srcs = glob(["**/*.ts"]),
+    declaration = True,
+    tsconfig = "//:tsconfig.json",
+    deps = [
+        "//prisma:myclient",
+        "@npm//@types/node",
+    ],
+)
+
+esbuild(
+    name = "server_bundle",
+    entry_point = "MyServer.ts",
+    platform = "node",
+    sources_content = True,
+    deps = [":server_sources"],
+)
+
+nodejs_binary(
+    name = "server",
+    data = [
+        ":server_bundle",
+        "//prisma:myclient",
+    ],
+    entry_point = ":server_bundle.js",
+    env = {
+        "DATABASE_DIR": "postgresql://johndoe:mypassword@localhost:5432/mydb?schema=public",
+    },
+)
