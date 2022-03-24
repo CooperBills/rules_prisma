@@ -35,7 +35,7 @@ def _prisma_js_library_impl(ctx):
     ctx.actions.run(
         mnemonic = "CompilePrisma",
         outputs = [out_dir, out_schema] + out_js_arr + out_ts_arr,
-        executable = ctx.executable._prisma_wrapper,
+        executable = ctx.executable.prisma_wrapper,
         arguments = [args],
         inputs = inputs,
         env = {
