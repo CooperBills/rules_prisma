@@ -1,14 +1,15 @@
 # rules_prisma
 Bazel rules for Prisma.
 
+Currently, there's a single rule: `prisma_js_library` which takes a prisma schema and outputs a typescript/javascript client.
+
 ## Installing
 
-This library assumes the following:
-* You're using [rules_nodejs](https://github.com/bazelbuild/rules_nodejs), and it's installed in the typical location (`@rules_nodejs`)
+This library assumes the following (perhaps these will be addressed in a later release):
+* You're using [rules_nodejs](https://github.com/bazelbuild/rules_nodejs), and it's added to your WORKSPACE in the typical fashion (at `@rules_nodejs`)
 * You have your bazel npm packages at `@npm`
 * `prisma-client-js` is your only generator (see `Additional Generators` below for ways to work with additional generators)
 * The output directory of your `prisma-client-js` matches your `prisma_js_library` target name (see `using` below)
-
 
 #### Required NPM deps
 
