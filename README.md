@@ -73,7 +73,9 @@ import { join } from "path";
 // If I find a cleaner way to do this, I'll update this readme.
 copyFileSync(join(__dirname, "../myclient/schema.prisma"), "./schema.prisma");
 
-const blah = new PrismaClient();
+const client = new PrismaClient();
+
+...
 ```
 
 ## Additional Generators
